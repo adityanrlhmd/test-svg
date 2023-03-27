@@ -1,9 +1,6 @@
-import { motion } from "framer-motion";
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
-import { useDraggable } from 'react-use-draggable-scroll';
-
-import { usePinch } from "react-use-gesture";
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
@@ -12,13 +9,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
-const SVG = ({ containerRef, setIsOpenList }) => {
+const SVG = ({ propsTransform, isOpenList, setIsOpenList }) => {
   const svgRef = useRef(null);
 
-  const [scaleSvg, setScaleSvg] = useState(1);
-
-  const [svgWidth, setSvgWidth] = useState(0);
-  const [svgHeight, setSvgHeight] = useState(0);
+  const [svgWidth, setSvgWidth] = useState(null);
+  const [svgHeight, setSvgHeight] = useState(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -32,46 +27,24 @@ const SVG = ({ containerRef, setIsOpenList }) => {
 
   const handleClick = (event) => {
     if (event.target?.getAttribute("fill") == "#4ED17E") {
-      const x = event.target?.getAttribute("x");
-      const y = event.target?.getAttribute("y");
-
-      const scrollLeft = x - 448 / 2;
-      const scrollTop = y - window.innerHeight / 2;
-
-      setScaleSvg(1.25)
-      setSvgWidth(prev => (prev * 0.25) + prev)
-
-      containerRef.current.scrollTo({ left: scrollLeft + 115, top: scrollTop, behavior: 'smooth' });
-
       setIsOpenList(true)
+      propsTransform.zoomToElement(event.target, 2, 500, 'easeOut')
     } else {
-      setScaleSvg(1)
-      setIsOpenList(false)
-      setSvgWidth((svgHeight / 3) * 4);
+      if (isOpenList) {
+        setIsOpenList(false)
+        propsTransform.zoomOut(1, 500, 'easeOut')
+      }
+      // propsTransform.centerView()
     }
   }
 
-  const bindPinch = usePinch(({ offset: [d], last, memo = scaleSvg }) => {
-    if (last) return;
-    const nextScale = Math.max(0.1, Math.min(memo + d / 100, 2));
-    setScaleSvg(Math.max(nextScale, 1));
-    return nextScale;
-  }, { domTarget: svgRef });
-
   return (
-    <motion.svg
-      {...bindPinch}
+    <svg
       ref={svgRef}
-      animate={{
-        x: 0,
-        y: 0,
-        scale: scaleSvg,
-      }}
       onClick={handleClick}
-      transition={{ duration: 0.3 }}
-      className='bg-[#F4F4F4] origin-top-left root-svg'
+      className="bg-[#F4F4F4]"
       width={svgWidth} height={svgHeight} viewBox={`0 0 ${svgWidth} ${svgHeight}`} fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width={svgWidth} height={svgHeight} fill="#F4F4F4" />
+      {/* <rect width={svgWidth} height={svgHeight} fill="#F4F4F4" /> */}
       <mask id="path-1-inside-1_298_2021" fill="white">
         <path d="M729.697 0C743.966 23.5026 752.15 50.9922 752.15 80.5803C752.15 166.197 682.692 235.655 597.075 235.655C511.459 235.655 442 166.197 442 80.5803C442 50.9922 450.184 23.5026 464.453 0" />
       </mask>
@@ -278,14 +251,11 @@ const SVG = ({ containerRef, setIsOpenList }) => {
       <rect x="95" y="153" width="40" height="40" rx="20" fill="#4ED17E" />
       <path d="M108.965 168.969V177.5H107.213V168.969H108.965ZM111.59 168.969V170.346H104.629V168.969H111.59ZM116.529 168.951V177.5H114.842V170.896L112.814 171.541V170.211L116.348 168.951H116.529ZM123.66 168.881H123.906V170.229H123.807C123.361 170.229 122.965 170.295 122.617 170.428C122.27 170.561 121.975 170.75 121.732 170.996C121.494 171.238 121.311 171.531 121.182 171.875C121.057 172.219 120.994 172.604 120.994 173.029V174.447C120.994 174.752 121.023 175.021 121.082 175.256C121.145 175.486 121.232 175.68 121.346 175.836C121.463 175.988 121.6 176.104 121.756 176.182C121.912 176.256 122.088 176.293 122.283 176.293C122.467 176.293 122.633 176.254 122.781 176.176C122.934 176.098 123.062 175.988 123.168 175.848C123.277 175.703 123.359 175.535 123.414 175.344C123.473 175.148 123.502 174.936 123.502 174.705C123.502 174.475 123.473 174.262 123.414 174.066C123.359 173.871 123.277 173.703 123.168 173.562C123.059 173.418 122.926 173.307 122.77 173.229C122.613 173.15 122.438 173.111 122.242 173.111C121.977 173.111 121.742 173.174 121.539 173.299C121.34 173.42 121.184 173.576 121.07 173.768C120.957 173.959 120.896 174.16 120.889 174.371L120.379 174.043C120.391 173.742 120.453 173.457 120.566 173.188C120.684 172.918 120.844 172.68 121.047 172.473C121.254 172.262 121.502 172.098 121.791 171.98C122.08 171.859 122.406 171.799 122.77 171.799C123.168 171.799 123.518 171.875 123.818 172.027C124.123 172.18 124.377 172.389 124.58 172.654C124.783 172.92 124.936 173.227 125.037 173.574C125.139 173.922 125.189 174.293 125.189 174.688C125.189 175.102 125.121 175.486 124.984 175.842C124.852 176.197 124.658 176.508 124.404 176.773C124.154 177.039 123.854 177.246 123.502 177.395C123.15 177.543 122.756 177.617 122.318 177.617C121.865 177.617 121.453 177.535 121.082 177.371C120.715 177.203 120.398 176.969 120.133 176.668C119.867 176.367 119.662 176.01 119.518 175.596C119.377 175.182 119.307 174.729 119.307 174.236V173.58C119.307 172.893 119.406 172.264 119.605 171.693C119.809 171.119 120.1 170.623 120.479 170.205C120.857 169.783 121.314 169.457 121.85 169.227C122.385 168.996 122.988 168.881 123.66 168.881Z" fill="#020202" />
       <rect x="539" y="25" width="116" height="120" rx="58" fill="url(#pattern0)" />
-    </motion.svg>
+    </svg>
   )
 }
 
-export default function Home() {
-  const containerRef = useRef(null);
-  const { events } = useDraggable(containerRef);
-
+export default function Test() {
   const [isOpenList, setIsOpenList] = useState(false)
 
   return (
@@ -297,17 +267,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='max-w-md mx-auto overflow-auto scrollbar-hide relative'>
-        <motion.div
-          {...events}
-          ref={containerRef}
-          className='overflow-auto scrollbar-hide w-full relative duration-500'
-        >
-          <SVG
-            containerRef={containerRef}
-            setIsOpenList={setIsOpenList}
-          />
-        </motion.div>
+      <main className='max-w-md mx-auto'>
+        <TransformWrapper initialScale={1}>
+          {({ ...rest }) => (
+            <>
+              <TransformComponent wrapperClass='max-w-md mx-auto'>
+                <SVG
+                  propsTransform={rest}
+                  isOpenList={isOpenList}
+                  setIsOpenList={setIsOpenList}
+                />
+              </TransformComponent>
+            </>
+          )}
+        </TransformWrapper>
 
         <Drawer
           enableOverlay={false}
