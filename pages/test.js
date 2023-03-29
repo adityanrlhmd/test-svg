@@ -1,22 +1,14 @@
 import Head from 'next/head';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
-import Drawer from 'react-modern-drawer';
-import 'react-modern-drawer/dist/index.css';
-
-import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
-
+import SliderList from '@components/Slider';
 import SVG from '@components/SVG';
 import seats from "@data/seat.json";
-import { useEffect } from 'react';
 
 export default function Test() {
-  const listSeatSliders = seats.filter((seat) => seat.isAvailable);
-
-  const sliderRef = useRef(null);
+  const [svgWidth, setSvgWidth] = useState(null);
+  const [svgHeight, setSvgHeight] = useState(null);
 
   const [isOpenList, setIsOpenList] = useState(false);
   const [rectSelected, setRectSelected] = useState([]);
@@ -24,12 +16,18 @@ export default function Test() {
   const [currentSlideId, setCurrentSlideId] = useState(null);
 
   useEffect(() => {
-    if (currentSlideId) {
-      const seatsId = currentSlideId.split("-")[1];
+    if (typeof window !== 'undefined') {
+      const windowHeight = window.innerHeight;
 
-      sliderRef.current.slickGoTo(listSeatSliders.findIndex(obj => obj.id == seatsId))
+      setSvgWidth(1194)
+
+      if (windowHeight > 824) {
+        setSvgHeight(windowHeight);
+      } else {
+        setSvgHeight(824)
+      }
     }
-  }, [currentSlideId])
+  }, [])
 
   return (
     <>
@@ -41,64 +39,46 @@ export default function Test() {
       </Head>
 
       <main className='max-w-md mx-auto'>
-        <TransformWrapper
-          initialScale={1}
-          disablePadding={true}
-          centerOnInit={true}
-        >
-          {({ ...rest }) => (
-            <>
-              <TransformComponent wrapperClass='max-w-md mx-auto'>
-                <SVG
-                  dataSeats={seats}
-                  propsTransform={rest}
-                  isOpenList={isOpenList}
-                  setIsOpenList={setIsOpenList}
-                  rectSelected={rectSelected}
-                  setRectSelected={setRectSelected}
-                  currentSlideId={currentSlideId}
-                  setCurrentSlideId={setCurrentSlideId}
-                />
-              </TransformComponent>
+        {
+          svgWidth && svgHeight ?
+            <TransformWrapper
+              initialScale={1}
+              centerOnInit={true}
+              disablePadding={true}
+              doubleClick={{ disabled: true }}
+            >
+              {({ ...rest }) => (
+                <>
+                  <TransformComponent
+                    wrapperStyle={{ maxWidth: "100%", maxHeight: "calc(100vh)" }}
+                  >
+                    <SVG
+                      dataSeats={seats}
+                      svgWidth={svgWidth}
+                      svgHeight={svgHeight}
+                      propsTransform={rest}
+                      isOpenList={isOpenList}
+                      setIsOpenList={setIsOpenList}
+                      rectSelected={rectSelected}
+                      setRectSelected={setRectSelected}
+                      currentSlideId={currentSlideId}
+                      setCurrentSlideId={setCurrentSlideId}
+                    />
+                  </TransformComponent>
 
-              <Drawer
-                enableOverlay={false}
-                open={isOpenList}
-                direction='bottom'
-                rootClassName='root-drawer-list'
-                className='drawer-list mb-3 relative'
-                onClose={() => setIsOpenList(prev => !prev)}
-              >
-                <Slider
-                  ref={sliderRef}
-                  speed={500}
-                  arrows={false}
-                  infinite={true}
-                  centerMode={true}
-                  slidesToScroll={1}
-                  centerPadding='40px'
-                  className="carousel"
-                  afterChange={(e) => {
-                    setCurrentSlideId("TB-" + listSeatSliders[e].id)
-
-                    const targetRect = document.getElementById("TB-" + listSeatSliders[e].id);
-                    rest.zoomToElement(targetRect, 2, 500, 'easeOut')
-                  }}
-                >
-                  {
-                    listSeatSliders.map((item, index) =>
-                      <div key={index} id={"CARD-" + item.id} className="bg-green-400 rounded-lg w-full h-[244px] ">
-                        <div className='flex justify-center items-center w-full h-full'>
-                          <h3>{item.text}</h3>
-                        </div>
-                      </div>
-                    )
-                  }
-                </Slider>
-              </Drawer>
-            </>
-          )}
-        </TransformWrapper>
+                  <SliderList
+                    propsTransform={rest}
+                    isOpenList={isOpenList}
+                    setIsOpenList={setIsOpenList}
+                    currentSlideId={currentSlideId}
+                    setCurrentSlideId={setCurrentSlideId}
+                    seatsActive={seats.filter((seat) => seat.isAvailable)}
+                  />
+                </>
+              )}
+            </TransformWrapper>
+            : null
+        }
       </main>
     </>
   )

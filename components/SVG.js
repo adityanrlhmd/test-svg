@@ -1,28 +1,10 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef } from "react";
 
-const SVG = ({ propsTransform, isOpenList, setIsOpenList, rectSelected, setRectSelected, currentSlideId, setCurrentSlideId, dataSeats }) => {
+const SVG = ({ svgWidth, svgHeight, propsTransform, isOpenList, setIsOpenList, rectSelected, setRectSelected, currentSlideId, setCurrentSlideId, dataSeats }) => {
   const svgRef = useRef(null);
 
-  const [svgWidth, setSvgWidth] = useState(0);
-  const [svgHeight, setSvgHeight] = useState(0);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const windowHeight = window.innerHeight;
-      const windowWidth = (windowHeight / 3) * 4;
-
-      setSvgHeight(windowHeight);
-      setSvgWidth(windowWidth);
-    }
-  }, [])
-
-  useEffect(() => {
-    if (svgHeight && svgWidth)
-      propsTransform.centerView()
-  }, [svgHeight, svgWidth])
-
   const handleClick = (event) => {
-    if (event.target?.getAttribute("fill") == "#4ED17E" || event.target?.getAttribute("fill") == "#020202") {
+    if (event.target?.getAttribute("fill") == "#4ED17E" || event.target?.getAttribute("fill") == "black") {
       setIsOpenList(true)
       setCurrentSlideId(event.target?.getAttribute("id"))
       propsTransform.zoomToElement(event.target, 2, 500, 'easeOut')
@@ -231,19 +213,17 @@ const SVG = ({ propsTransform, isOpenList, setIsOpenList, rectSelected, setRectS
               y={parseInt(item.y) + 25}
               fontSize="12"
               fontWeight="700"
-              fill={item.isAvailable ? '#020202' : '#D7D7D7'}
+              fill={item.isAvailable ? 'black' : '#D7D7D7'}
             >
               {item.text}
             </text>
           </Fragment>
         )
       }
-      <rect x="539" y="25" width="116" height="120" rx="58" fill="url(#pattern0)" />
-      {/* <defs>
-        <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-          <use xlink:href="#image0_298_2021" transform="matrix(0.000947392 0 0 0.000928288 -0.409497 -0.00127551)" />
-        </pattern>
-      </defs> */}
+
+      <image
+        href="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20190710102234/download3.png"
+        x="537" y="25" width="120" height="120" clipPath="inset(0% round 999px)" />
     </svg>
   )
 }

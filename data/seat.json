@@ -1,198 +1,198 @@
 [
-  {
-      "id": 1,
-      "x": "906",
-      "y": "145",
-      "text": "T16",
-      "isAvailable": false
-  },
-  {
-      "id": 2,
-      "x": "846",
-      "y": "257",
-      "text": "T17",
-      "isAvailable": false
-  },
-  {
-      "id": 3,
-      "x": "677",
-      "y": "368",
-      "text": "T18",
-      "isAvailable": false
-  },
-  {
-      "id": 4,
-      "x": "642",
-      "y": "477",
-      "text": "T19",
-      "isAvailable": true
-  },
-  {
-      "id": 5,
-      "x": "634",
-      "y": "604",
-      "text": "T20",
-      "isAvailable": true
-  },
-  {
-      "id": 6,
-      "x": "761",
-      "y": "545",
-      "text": "T21",
-      "isAvailable": true
-  },
-  {
-      "id": 7,
-      "x": "762",
-      "y": "414",
-      "text": "T22",
-      "isAvailable": false
-  },
-  {
-      "id": 8,
-      "x": "841",
-      "y": "499",
-      "text": "T23",
-      "isAvailable": false
-  },
-  {
-      "id": 9,
-      "x": "961",
-      "y": "390",
-      "text": "T24",
-      "isAvailable": false
-  },
-  {
-      "id": 10,
-      "x": "889",
-      "y": "325",
-      "text": "T25",
-      "isAvailable": true
-  },
-  {
-      "id": 11,
-      "x": "941",
-      "y": "240",
-      "text": "T26",
-      "isAvailable": false
-  },
-  {
-      "id": 12,
-      "x": "1018",
-      "y": "263",
-      "text": "T27",
-      "isAvailable": true
-  },
-  {
-      "id": 13,
-      "x": "981",
-      "y": "138",
-      "text": "T28",
-      "isAvailable": true
-  },
-  {
-      "id": 14,
-      "x": "1059",
-      "y": "153",
-      "text": "T29",
-      "isAvailable": true
-  },
-  {
-      "id": 15,
-      "x": "248",
-      "y": "145",
-      "text": "T30",
-      "isAvailable": true
-  },
-  {
-      "id": 16,
-      "x": "308",
-      "y": "257",
-      "text": "T31",
-      "isAvailable": false
-  },
-  {
-      "id": 17,
-      "x": "477",
-      "y": "368",
-      "text": "T32",
-      "isAvailable": true
-  },
-  {
-      "id": 18,
-      "x": "512",
-      "y": "477",
-      "text": "T33",
-      "isAvailable": true
-  },
-  {
-      "id": 19,
-      "x": "520",
-      "y": "604",
-      "text": "T34",
-      "isAvailable": true
-  },
-  {
-      "id": 20,
-      "x": "393",
-      "y": "545",
-      "text": "T35",
-      "isAvailable": false
-  },
-  {
-      "id": 21,
-      "x": "392",
-      "y": "414",
-      "text": "T36",
-      "isAvailable": true
-  },
-  {
-      "id": 22,
-      "x": "313",
-      "y": "499",
-      "text": "T37",
-      "isAvailable": true
-  },
-  {
-      "id": 23,
-      "x": "193",
-      "y": "390",
-      "text": "T38",
-      "isAvailable": true
-  },
-  {
-      "id": 24,
-      "x": "265",
-      "y": "325",
-      "text": "T39",
-      "isAvailable": false
-  },
-  {
-      "id": 25,
-      "x": "213",
-      "y": "240",
-      "text": "T40",
-      "isAvailable": false
-  },
-  {
-      "id": 26,
-      "x": "136",
-      "y": "263",
-      "text": "T41",
-      "isAvailable": false
-  },
-  {
-      "id": 27,
-      "x": "173",
-      "y": "138",
-      "text": "T42",
-      "isAvailable": false
-  },
-  {
-      "id": 28,
-      "x": "95",
-      "y": "153",
-      "text": "T43",
-      "isAvailable": true
-  }
+    {
+        "id": 1,
+        "x": "906",
+        "y": "145",
+        "text": "T16",
+        "isAvailable": false
+    },
+    {
+        "id": 2,
+        "x": "846",
+        "y": "257",
+        "text": "T17",
+        "isAvailable": false
+    },
+    {
+        "id": 3,
+        "x": "677",
+        "y": "368",
+        "text": "T18",
+        "isAvailable": false
+    },
+    {
+        "id": 4,
+        "x": "642",
+        "y": "477",
+        "text": "T19",
+        "isAvailable": true
+    },
+    {
+        "id": 5,
+        "x": "634",
+        "y": "604",
+        "text": "T20",
+        "isAvailable": true
+    },
+    {
+        "id": 6,
+        "x": "761",
+        "y": "545",
+        "text": "T21",
+        "isAvailable": true
+    },
+    {
+        "id": 7,
+        "x": "762",
+        "y": "414",
+        "text": "T22",
+        "isAvailable": false
+    },
+    {
+        "id": 8,
+        "x": "841",
+        "y": "499",
+        "text": "T23",
+        "isAvailable": false
+    },
+    {
+        "id": 9,
+        "x": "961",
+        "y": "390",
+        "text": "T24",
+        "isAvailable": false
+    },
+    {
+        "id": 10,
+        "x": "889",
+        "y": "325",
+        "text": "T25",
+        "isAvailable": true
+    },
+    {
+        "id": 11,
+        "x": "941",
+        "y": "240",
+        "text": "T26",
+        "isAvailable": false
+    },
+    {
+        "id": 12,
+        "x": "1018",
+        "y": "263",
+        "text": "T27",
+        "isAvailable": true
+    },
+    {
+        "id": 13,
+        "x": "981",
+        "y": "138",
+        "text": "T28",
+        "isAvailable": true
+    },
+    {
+        "id": 14,
+        "x": "1059",
+        "y": "153",
+        "text": "T29",
+        "isAvailable": true
+    },
+    {
+        "id": 15,
+        "x": "248",
+        "y": "145",
+        "text": "T30",
+        "isAvailable": true
+    },
+    {
+        "id": 16,
+        "x": "308",
+        "y": "257",
+        "text": "T31",
+        "isAvailable": false
+    },
+    {
+        "id": 17,
+        "x": "477",
+        "y": "368",
+        "text": "T32",
+        "isAvailable": true
+    },
+    {
+        "id": 18,
+        "x": "512",
+        "y": "477",
+        "text": "T33",
+        "isAvailable": true
+    },
+    {
+        "id": 19,
+        "x": "520",
+        "y": "604",
+        "text": "T34",
+        "isAvailable": true
+    },
+    {
+        "id": 20,
+        "x": "393",
+        "y": "545",
+        "text": "T35",
+        "isAvailable": false
+    },
+    {
+        "id": 21,
+        "x": "392",
+        "y": "414",
+        "text": "T36",
+        "isAvailable": true
+    },
+    {
+        "id": 22,
+        "x": "313",
+        "y": "499",
+        "text": "T37",
+        "isAvailable": true
+    },
+    {
+        "id": 23,
+        "x": "193",
+        "y": "390",
+        "text": "T38",
+        "isAvailable": true
+    },
+    {
+        "id": 24,
+        "x": "265",
+        "y": "325",
+        "text": "T39",
+        "isAvailable": false
+    },
+    {
+        "id": 25,
+        "x": "213",
+        "y": "240",
+        "text": "T40",
+        "isAvailable": false
+    },
+    {
+        "id": 26,
+        "x": "136",
+        "y": "263",
+        "text": "T41",
+        "isAvailable": false
+    },
+    {
+        "id": 27,
+        "x": "173",
+        "y": "138",
+        "text": "T42",
+        "isAvailable": false
+    },
+    {
+        "id": 28,
+        "x": "95",
+        "y": "153",
+        "text": "T43",
+        "isAvailable": true
+    }
 ]
