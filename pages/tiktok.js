@@ -1,28 +1,24 @@
+import Video from '@components/Video';
 import Head from 'next/head';
+import { useState } from 'react';
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 
 export default function Tiktok() {
-  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  const settings = {
-    dots: false,
-    infinite: false,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    vertical: true,
-    arrows: false,
-    verticalSwiping: true,
-    swipeToSlide: true,
-    beforeChange: function (currentSlide, nextSlide) {
-      console.log("before change", currentSlide, nextSlide);
+  const data = [
+    {
+      id: 1,
+      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
     },
-    afterChange: function (currentSlide) {
-      console.log("after change", currentSlide);
-    }
-  };
+    {
+      id: 2,
+      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+    },
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
     <>
@@ -33,31 +29,37 @@ export default function Tiktok() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='max-w-md mx-auto overflow-auto scrollbar-hide relative bg-white min-h-screen'>
+      <main className='max-w-md mx-auto overflow-auto scrollbar-hide relative bg-white min-h-screen flex flex-col'>
         <Slider
-          className="carousel-vertical max-h-screen"
+          className="carousel-vertical grow"
+          adaptiveHeight={true}
           centerMode={false}
           infinite={false}
           slidesToScroll={1}
           speed={500}
+          onEdge={(e) => console.log(e)}
           arrows={false}
           vertical={true}
           verticalSwiping={true}
           afterChange={(currentSlide) => {
-            console.log("after change", currentSlide);
+            setCurrentSlide(currentSlide)
           }}
         >
           {
             data.map((item, index) =>
-              <div
+              <Video
                 key={index}
-                className={`min-h-screen ${item % 2 == 0 ? 'bg-green-400' : 'bg-red-400'}`}
-              >
-                <h3>{item}</h3>
-              </div>
+                item={item}
+                index={index}
+                currentSlide={currentSlide}
+              />
             )
           }
         </Slider>
+
+        {/* <div className='sticky bottom-0 bg-blue-400 w-full'>
+          adit
+        </div> */}
       </main>
     </>
   )

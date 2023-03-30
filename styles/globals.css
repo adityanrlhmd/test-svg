@@ -52,14 +52,18 @@ a {
   fill: var(--focus-rect, #0FE2FB);
 }
 
-.carousel-vertical .slick-slide {
-  @apply p-0 m-0 !border-none
-}
-
 .carousel-svg .slick-slide {
   @apply scale-90 transition-transform duration-500 ease-in-out p-0
 }
 
 .carousel-svg .slick-active {
   @apply scale-100
+}
+
+.carousel-vertical .slick-slide {
+  @apply p-0 m-0 !border-none
+}
+
+.carousel-vertical {
+  @apply !h-full
 }
