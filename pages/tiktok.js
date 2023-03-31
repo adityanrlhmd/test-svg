@@ -2,19 +2,26 @@ import Video from '@components/Video';
 import Head from 'next/head';
 import { useState } from 'react';
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
 
 export default function Tiktok() {
   const data = [
     {
       id: 1,
-      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      url: 'http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4'
     },
     {
       id: 2,
-      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'
+      url: 'http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4'
+    },
+    {
+      id: 3,
+      url: 'http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4'
     },
   ];
 
@@ -29,8 +36,35 @@ export default function Tiktok() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className='max-w-md mx-auto overflow-auto scrollbar-hide relative bg-white min-h-screen flex flex-col'>
-        <Slider
+      <main className='max-w-lg mx-auto overflow-auto scrollbar-hide relative bg-white h-screen flex flex-col'>
+        <div className='grow flex'>
+          <Swiper
+            direction={"vertical"}
+            pagination={{
+              clickable: true,
+            }}
+            autoHeight={true}
+            className="video-swiper !m-0 h-full w-full"
+            onActiveIndexChange={(e) => setCurrentSlide(e.activeIndex)}
+          >
+            {
+              data.map((item, index) =>
+                <SwiperSlide
+                  key={index}
+                  className=" relative"
+                >
+                {/* <div className={`h-full w-full ${index % 2 == 0 ? 'bg-green-400' : 'bg-red-400'}`} /> */}
+                  <Video
+                    item={item}
+                    index={index}
+                    currentSlide={currentSlide}
+                  />
+                </SwiperSlide>
+              )
+            }
+          </Swiper>
+        </div>
+        {/* <Slider
           className="carousel-vertical grow"
           adaptiveHeight={true}
           centerMode={false}
@@ -43,6 +77,8 @@ export default function Tiktok() {
           verticalSwiping={true}
           afterChange={(currentSlide) => {
             setCurrentSlide(currentSlide)
+
+            console.log(currentSlide);
           }}
         >
           {
@@ -55,11 +91,11 @@ export default function Tiktok() {
               />
             )
           }
-        </Slider>
+        </Slider> */}
 
-        {/* <div className='sticky bottom-0 bg-blue-400 w-full'>
+        <div className='sticky bottom-0 bg-blue-400 w-full '>
           adit
-        </div> */}
+        </div>
       </main>
     </>
   )

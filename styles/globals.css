@@ -67,3 +67,11 @@ a {
 .carousel-vertical {
   @apply !h-full
 }
+
+.wrap-video {
+  @apply relative
+}
+
+.wrap-video video {
+  @apply w-full h-full object-cover
+}

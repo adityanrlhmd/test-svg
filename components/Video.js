@@ -19,9 +19,10 @@ function Video({ item, index, currentSlide }) {
   }, [currentSlide])
 
   return (
-    <div className={`min-h-screen flex flex-col justify-center items-center ${index % 2 == 0 ? 'bg-green-400' : 'bg-red-400'}`}>
+    <div className={`h-full w-full ${index % 2 == 0 ? 'bg-green-400' : 'bg-red-400'}`}>
       {/* <ReactPlayer url='https://www.youtube.com/watch?v=ysz5S6PUM-U' /> */}
-      {isPlay ? 'play' : 'pause'}
+      {/* {isPlay ? 'play' : 'pause'} */}
+      <div onClick={() => setIsPlay(prev => !prev)} className='absolute z-10 bg-transparent top-0 left-0 h-full w-full' />
       <ReactPlayer
         url={item.url}
         controls={true}
@@ -30,7 +31,8 @@ function Video({ item, index, currentSlide }) {
         loop={true}
         playing={isPlay}
         volume={0.5}
-        muted={false}
+        muted={true}
+        className='wrap-video'
       />
       {/* <video
         ref={videoRef}
